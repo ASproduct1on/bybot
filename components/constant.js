@@ -1,4 +1,5 @@
-export const url = 'https://api-testnet.bybit.com'
+export const url = 'https://api.bybit.com'
+// 'https://api.bybit.com' || 'https://api-testnet.bybit.com'
 export const recvWindow = 5000
 
 export const uap = [
