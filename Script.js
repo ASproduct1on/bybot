@@ -1,3 +1,5 @@
+import { uap } from './components/constant.js'
+import shuffledData from './components/ExcelParse.js'
 import Modes from './components/modes/modes.modules.js'
 
 let { balance, order, transfer, maxSell } = Modes
@@ -24,7 +26,7 @@ function getRandomElement(arr) {
 
 /* ******************** MAIN SCRIPT ******************** */
 
-;async (shuffledData, uap) => {
+const processTransfers = async (shuffledData, uap) => {
 	for (let i = 0; i < shuffledData.length; i++) {
 		const { apiKey, secretKey, proxy } = shuffledData[i]
 		const randomUA = getRandomElement(uap)
@@ -41,3 +43,6 @@ function getRandomElement(arr) {
 		await maxSell('BTC', apiKey, secretKey, proxy, randomUA)
 	}
 }
+
+// Call the function with shuffledData and uap
+processTransfers(shuffledData, uap)
