@@ -8,26 +8,23 @@ const getRandomDelay = (min, max) => {
 	return Math.floor(Math.random() * (max - min + 1)) + min
 }
 export async function maxSell(coin, ...keys) {
-	function getTransferAmount(response, coin = 'USDT') {
+	function getTransferAmount(response, coin) {
 		const balanceInfo = response.result.balance.find(b => b.coin === coin)
 		// console.log('amount', balanceInfo ? balanceInfo.transferBalance : null)
-		const amount = balanceInfo ? balanceInfo.transferBalance : null
-
-		return amount
+		return balanceInfo ? balanceInfo.transferBalance : null
 	}
 	try {
-		const randomDelay = getRandomDelay(1000, 5000) // range: 1 to 5 seconds
-		const balanceResult = await new Promise(resolve => {
-			balance(resolve, ...keys)
+		const randomDelay = getRandomDelay(1500, 3500) // range: 1.5 to 3.5 seconds
+		const balanceResult = await new Promise(fund => {
+			balance(fund, 'FUND', ...keys)
 		})
 		const amount = await getTransferAmount(balanceResult, coin)
-		const amountSell = Math.floor(+amount * 100000) / 100000
 
 		await delay(randomDelay)
-		await transfer(amount, coin, ...keys)
+		await transfer(amount, coin, 'fromFund', ...keys)
 		await delay(randomDelay)
 
-		await order(amountSell, coin, 'Sell', ...keys)
+		await order(amount, coin, 'Sell', ...keys)
 	} catch (error) {
 		console.error('Ошибка:', error)
 	}

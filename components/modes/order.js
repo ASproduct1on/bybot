@@ -1,10 +1,12 @@
 import crypto from 'crypto'
+import { BasePrecision } from '../BasePrecision.js'
 import { Parser } from '../Parser.js'
 
 export async function order(amount, coin, side, ...keys) {
-	console.log(`amount ${side} `, `${amount}`)
-
+	let qty = side === 'Sell' ? await BasePrecision(amount, coin) : amount
+	console.log(`${side} `, amount)
 	console.log('coin ', `${coin}USDT`)
+
 	const orderLinkId = crypto.randomBytes(16).toString('hex')
 	const endpoint = '/v5/order/create'
 	const data = {
@@ -13,7 +15,7 @@ export async function order(amount, coin, side, ...keys) {
 		isLeverage: 0,
 		side: side,
 		orderType: 'Market',
-		qty: `${amount}`,
+		qty: `${qty}`,
 		price: '1000',
 		triggerPrice: null,
 		triggerDirection: null,

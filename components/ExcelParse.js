@@ -19,6 +19,8 @@ function parseProxy(proxyString) {
 
 	if (proxyString.startsWith('http://')) {
 		proxyString = proxyString.substring(7)
+	} else if (proxyString.startsWith('socks5://')) {
+		proxyString = proxyString.substring(9)
 	}
 
 	let proxy = {}

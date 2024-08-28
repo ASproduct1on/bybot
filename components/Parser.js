@@ -29,7 +29,7 @@ export async function Parser(endpoint, method, data, keys, Info) {
 		'X-BAPI-API-KEY': apiKey,
 		'X-BAPI-TIMESTAMP': timestamp,
 		'X-BAPI-RECV-WINDOW': recvWindow.toString(),
-		'User-Agent': UA,
+		// 'User-Agent': UA,
 	}
 
 	if (method === 'POST') {
@@ -41,7 +41,7 @@ export async function Parser(endpoint, method, data, keys, Info) {
 		url: fullendpoint,
 		headers: headers,
 		data: data,
-		httpsAgent,
+		// httpsAgent,
 	}
 
 	console.log(Info + ' Calling....')
